@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using StokTakip.Products;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -53,6 +55,12 @@ public class StokTakipDbContext :
 
     #endregion
 
+    #region stoktakipdbieis
+
+    public DbSet<Product> Products { get; set; }
+
+    #endregion
+
     public StokTakipDbContext(DbContextOptions<StokTakipDbContext> options)
         : base(options)
     {
@@ -82,5 +90,11 @@ public class StokTakipDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+        builder.Entity<Product>(b =>
+        {
+            b.ToTable(StokTakipConsts.DbTablePrefix +"Product", StokTakipConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            //...
+        });
     }
 }
