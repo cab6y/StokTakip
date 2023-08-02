@@ -7,6 +7,6 @@ namespace StokTakip.Products
 {
     public class GetProductListDto : PagedAndSortedResultRequestDto
     {
-        public string Filter { get; set; }
+        public string? Filter { get; set; }
     }
 }
