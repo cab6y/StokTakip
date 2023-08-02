@@ -1,0 +1,15 @@
+/* Your Global Styles */
+
+:root .lpx-brand-logo {
+    --lpx-logo: url('/images/logo/leptonx/logo-light.png');
+    --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
+}
+.navbar, .navbar-expand-md, .navbar-dark {
+    --bs-bg-opacity: 1;
+    /* background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important; */
+    background-image: linear-gradient(to right, rgb(0, 38, 255), rgb(255, 70, 0));
+    color: #fff;
+}
+.nav-link{
+    color: #fff;
+}
