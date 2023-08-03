@@ -124,6 +124,8 @@ namespace StokTakip.ProductSizes
             {
                 var get = await _productSizesRepository.GetAsync(input.Id);
                 get.Size = input.Size;
+                get.Description = input.Description;
+                get.Quantity = input.Quantity;
                 await _productSizesRepository.UpdateAsync(get);
                 return true;
             }

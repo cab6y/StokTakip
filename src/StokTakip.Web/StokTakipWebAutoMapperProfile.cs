@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using StokTakip.Products;
+using StokTakip.ProductSizes;
+using StokTakip.Web.Pages.Products;
 using static StokTakip.Web.Pages.Products.CreateModalModel;
 using static StokTakip.Web.Pages.Products.EditModalModel;
 
@@ -13,5 +15,7 @@ public class StokTakipWebAutoMapperProfile : Profile
         CreateMap<Create, CreateProduct>();
         CreateMap<ProductDto, Edit>();
         CreateMap<Edit, ProductDto>();
+        CreateMap<CreateSize, CreateProductSize>();
+        CreateMap<EditSize, ProductSizeDto>();
     }
 }

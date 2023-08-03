@@ -12,13 +12,29 @@
 
 <abp-modal centered="true" size="ExtraLarge">
     <abp-dynamic-form abp-model="sizes">
-        <abp-modal-header title="@L["SizesProduct"].Value"></abp-modal-header>
+        <abp-card-header>
+            <abp-modal-header></abp-modal-header>
+           
+        </abp-card-header>
+       
         <abp-modal-body>
+            <abp-row>
+                <abp-column>
+                    <abp-card-title>@L["Sizes"].Value</abp-card-title>
+                </abp-column>
+                <abp-column size-md="_2" class="text-right">
+
+                    <abp-button id="newProductSize"
+                                text="Yeni Beden"
+                                icon="plus"
+                                button-type="Primary" />
+                </abp-column>
+            </abp-row>
             <abp-modal-body>
                 <abp-form-content />
                 <abp-table striped-rows="true" id="sizeTable"></abp-table>
             </abp-modal-body>
         </abp-modal-body>
     </abp-dynamic-form>
-    <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    <abp-modal-footer buttons="@(AbpModalButtons.Close)"></abp-modal-footer>
 </abp-modal>

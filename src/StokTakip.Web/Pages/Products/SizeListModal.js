@@ -1,8 +1,7 @@
 $(function () {
     var l = abp.localization.getResource('StokTakip');
-    var createModal = new abp.ModalManager(abp.appPath + 'Products/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Products/EditModal');
-    var sizeModal = new abp.ModalManager(abp.appPath + 'Products/SizeListModal');
+    var createModal = new abp.ModalManager(abp.appPath + 'Products/SizeCreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Products/SizeEditModal');
     var dataTable = $('#sizeTable').DataTable(
 
         abp.libs.datatables.normalizeConfiguration({
@@ -23,7 +22,10 @@ $(function () {
                     title: "aciklama",
                     data: "description"
                 },
-               
+                {
+                    title: "Adet",
+                    data: "quantity"
+                },
                 {
                     title: l('Actions'),
                     rowAction: {
@@ -35,17 +37,12 @@ $(function () {
                                         editModal.open({ id: data.record.id });
                                     }
                                 },
-                                {
-                                    text: l('OpenSize'),
-                                    action: function (data) {
-                                        sizeModal.open({ id: data.record.id });
-                                    }
-                                },
+                               
 
                                 {
                                     text: l('Delete'),
                                     action: function (data) {
-                                        stokTakip.products.product.
+                                        stokTakip.productSizes.productSize.
                                             delete(data.record.id)
                                             .then(function () {
                                                 abp.notify.info(
@@ -68,12 +65,12 @@ $(function () {
     createModal.onResult(function () {
         dataTable.ajax.reload();
     });
-    $('#newProduct').click(function (e) {
-        e.preventDefault();
-        createModal.open();
-    });
     editModal.onResult(function () {
         dataTable.ajax.reload();
+    });
+    $('#newProductSize').click(function (e) {
+        e.preventDefault();
+        createModal.open({ id: $('#sizes_ProductId').val() });
     });
 
     $(function () {
