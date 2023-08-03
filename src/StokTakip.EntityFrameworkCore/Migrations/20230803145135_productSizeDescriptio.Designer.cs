@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StokTakip.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace StokTakip.Migrations
 {
     [DbContext(typeof(StokTakipDbContext))]
-    partial class StokTakipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230803145135_productSizeDescriptio")]
+    partial class productSizeDescriptio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +67,8 @@ namespace StokTakip.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("StokTakipProductSizes", (string)null);
                 });
@@ -1772,6 +1777,15 @@ namespace StokTakip.Migrations
                     b.HasKey("TenantId", "Name");
 
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
+                });
+
+            modelBuilder.Entity("StokTakip.ProductSizes.ProductSize", b =>
+                {
+                    b.HasOne("StokTakip.Products.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>

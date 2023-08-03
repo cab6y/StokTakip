@@ -3,7 +3,7 @@ $(function () {
     var createModal = new abp.ModalManager(abp.appPath + 'Products/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Products/EditModal');
     var sizeModal = new abp.ModalManager(abp.appPath + 'Products/SizeListModal');
-    var dataTable = $('#productsTable').DataTable(
+    var dataTable = $('#sizeTable').DataTable(
 
         abp.libs.datatables.normalizeConfiguration({
             autoWidth: true,
@@ -19,41 +19,20 @@ $(function () {
             bFilter: false,
             searching: false,
             scrollX: true,
-            ajax: abp.libs.datatables.createAjax(stokTakip.products.product.getAll),
+            ajax: abp.libs.datatables.createAjax(stokTakip.productSizes.productSize.getAll),
 
             columnDefs: [
-                {
-                    orderable: false,
-                    data: "image",
-                    title: "resim",
-                    className: 'text-center',
-                    render: function (data, type, full, meta) {
-                        return '<img src="' + data + '" style="max-width:150px;max-height:150px;"/>';
-                    }
-                },
-               
+                
+
                 {
                     title: "Urun Adi",
-                    data: "name"
+                    data: "size"
                 },
                 {
                     title: "aciklama",
                     data: "description"
                 },
-                {
-                    orderable: false,
-                    data: "gender",
-                    title:"cinsiyet",
-                    className: 'text-center',
-                    render: function (data, type, full, meta) {
-                        if(data == 0)
-                            return '<i class="fas fa-male"></i>';
-                        if (data == 1)
-                            return '<i class="fas fa-female"></i>';
-                        if (data == 2)
-                            return '<i class="fas fa-rainbow"></i>';
-                    }
-                },
+               
                 {
                     title: l('Actions'),
                     rowAction: {
