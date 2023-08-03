@@ -12,6 +12,7 @@ namespace StokTakip.Products
         Task<bool> CreateAsync(CreateProduct input);
         Task<bool> DeleteAsync(Guid id);
         Task<bool> UpdateAsync(ProductDto id);
+        Task<ProductDto> GetByIdAsync(Guid id);
         Task<PagedResultDto<ProductDto>> GetAllAsync(GetProductListDto input);
     }
 }

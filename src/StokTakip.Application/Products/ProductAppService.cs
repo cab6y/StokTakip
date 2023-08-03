@@ -76,6 +76,19 @@ namespace StokTakip.Products
             }
         }
 
+        public async Task<ProductDto> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var get = await _productRepository.GetAsync(id);
+                return ObjectMapper.Map<Product, ProductDto>(get);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> UpdateAsync(ProductDto input)
         {
             try
@@ -84,6 +97,7 @@ namespace StokTakip.Products
                 get.Name = input.Name;
                 get.image = input.image;
                 get.Gender = input.Gender;
+                get.Description = input.Description;
                 await _productRepository.UpdateAsync(get);
                 return true;
             }

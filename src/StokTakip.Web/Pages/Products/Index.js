@@ -1,6 +1,7 @@
 $(function () {
     var l = abp.localization.getResource('StokTakip');
     var createModal = new abp.ModalManager(abp.appPath + 'Products/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'Products/EditModal');
     var dataTable = $('#productsTable').DataTable(
 
         abp.libs.datatables.normalizeConfiguration({
@@ -35,6 +36,10 @@ $(function () {
                     data: "name"
                 },
                 {
+                    title: "aciklama",
+                    data: "description"
+                },
+                {
                     orderable: false,
                     data: "gender",
                     title:"cinsiyet",
@@ -53,6 +58,12 @@ $(function () {
                     rowAction: {
                         items:
                             [
+                                {
+                                    text: l('Edit'),
+                                    action: function (data) {
+                                        editModal.open({ id: data.record.id });
+                                    }
+                                },
 
                                 {
                                     text: l('Delete'),
@@ -82,5 +93,8 @@ $(function () {
     $('#newProduct').click(function (e) {
         e.preventDefault();
         createModal.open();
+    });
+    editModal.onResult(function () {
+        dataTable.ajax.reload();
     });
 })

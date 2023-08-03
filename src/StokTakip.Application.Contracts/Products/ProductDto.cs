@@ -8,6 +8,7 @@ namespace StokTakip.Products
     public class ProductDto : EntityDto<Guid>
     {
         public string Name { get; set; }
+        public string Description { get; set; }
         public GenderEnum Gender { get; set; }
         public string image { get; set; }
         public bool IsActive { get; set; }
