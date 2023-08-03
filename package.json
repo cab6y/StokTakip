@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@abp/sweetalert": "^4.4.4",
+    "sweetalert2": "^11.7.20"
+  }
+}

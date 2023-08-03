@@ -1,5 +1,6 @@
 $(function () {
     var l = abp.localization.getResource('StokTakip');
+    var createModal = new abp.ModalManager(abp.appPath + 'Products/CreateModal');
     var dataTable = $('#productsTable').DataTable(
 
         abp.libs.datatables.normalizeConfiguration({
@@ -75,4 +76,11 @@ $(function () {
         })
 
     );
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+    $('#newProduct').click(function (e) {
+        e.preventDefault();
+        createModal.open();
+    });
 })
