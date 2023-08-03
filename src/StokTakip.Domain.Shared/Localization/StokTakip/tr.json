@@ -5,6 +5,8 @@
     "NewProduct": "Yeni Ürün",
     "Welcome": "Hoşgeldiniz",
     "Products": "Ürünler",
+    "OpenSize": "Beden Kontrolü",
+    "SizesProduct": "Beden Kontrolü",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz."
   }
 }

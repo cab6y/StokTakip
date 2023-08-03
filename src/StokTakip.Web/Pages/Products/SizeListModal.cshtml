@@ -11,11 +11,14 @@
 <script type="text/javascript" src="~/Pages/Products/SizeListModal.js"></script>
 
 <abp-modal centered="true" size="ExtraLarge">
-    <abp-modal-header title="@L["SizesProduct"].Value"></abp-modal-header>
-    <abp-modal-body>
+    <abp-dynamic-form abp-model="sizes">
+        <abp-modal-header title="@L["SizesProduct"].Value"></abp-modal-header>
         <abp-modal-body>
-            <abp-table striped-rows="true" id="sizeTable"></abp-table>
+            <abp-modal-body>
+                <abp-form-content />
+                <abp-table striped-rows="true" id="sizeTable"></abp-table>
+            </abp-modal-body>
         </abp-modal-body>
-    </abp-modal-body>
+    </abp-dynamic-form>
     <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
 </abp-modal>

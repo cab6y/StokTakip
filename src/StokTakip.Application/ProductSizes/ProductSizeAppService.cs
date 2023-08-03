@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using static StokTakip.ProductSizes.ProductSizeAppService;
 
 namespace StokTakip.ProductSizes
 {
@@ -43,20 +45,44 @@ namespace StokTakip.ProductSizes
             }
         }
 
-        public async Task<PagedResultDto<ProductSizeDto>> GetAllAsync(GetProductSizeListDto filter)
+        public async Task<PagedResultDto<ProductSizeDto>> GetAllAsync(GetProductSizeListDto input)
         {
             try
             {
                 List<ProductSizeDto> productsDto = new List<ProductSizeDto>();
                 var totalCount = 0;
                 var quarable = await _productSizesRepository.GetQueryableAsync();
+                
                 var query = from product in quarable
                            // where product.ProductId == ProductId
                             select new { product };
+                var filter = new Filter();
+                if (!input.Filter.IsNullOrWhiteSpace())
+                {
+                    List<FilterQuery> filterQuery = JsonConvert.DeserializeObject<List<FilterQuery>>(input.Filter);
+                    foreach (FilterQuery item in filterQuery)
+                    {
+                        if (!string.IsNullOrEmpty(item.Value))
+                        {
 
+                            if (item.Path == "Size")
+                            {
+                                filter.ProductId = Guid.Parse(item.Value);
+                            }
+                            
+                        }
+                    }
+                    //throw new EntityNotFoundException(ex.Message.ToString());
+                }
+                if (!filter.ProductId.ToString().IsNullOrWhiteSpace())
+                {
+                    //Paging
+                    query = query.Where(x => x.product.ProductId == filter.ProductId);
+
+                }
                 query = query
-                .Skip(filter.SkipCount)
-                .Take(filter.MaxResultCount);
+                .Skip(input.SkipCount)
+                .Take(input.MaxResultCount);
                 var queryResult = await AsyncExecuter.ToListAsync(query);
 
                 productsDto = queryResult.Select(x =>
@@ -64,7 +90,7 @@ namespace StokTakip.ProductSizes
                     var productDto = ObjectMapper.Map<ProductSize, ProductSizeDto>(x.product);
                     return productDto;
                 }).ToList();
-                totalCount = filter.Filter == null
+                totalCount = input.Filter == null
                ? await _productSizesRepository.CountAsync()
                : await _productSizesRepository.CountAsync();
 
@@ -105,6 +131,16 @@ namespace StokTakip.ProductSizes
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public class FilterQuery
+        {
+            public string Value { get; set; }
+            public string Condition { get; set; }
+            public string Path { get; set; }
+        }
+        public class Filter
+        {
+            public Guid ProductId { get; set; }
         }
     }
 }

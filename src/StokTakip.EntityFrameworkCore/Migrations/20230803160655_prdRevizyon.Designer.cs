@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StokTakip.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace StokTakip.Migrations
 {
     [DbContext(typeof(StokTakipDbContext))]
-    partial class StokTakipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230803160655_prdRevizyon")]
+    partial class prdRevizyon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,10 +65,6 @@ namespace StokTakip.Migrations
                     b.Property<string>("Size")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("TenantId");
 
                     b.HasKey("Id");
 
@@ -116,10 +115,6 @@ namespace StokTakip.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("TenantId");
 
                     b.Property<string>("image")
                         .IsRequired()
