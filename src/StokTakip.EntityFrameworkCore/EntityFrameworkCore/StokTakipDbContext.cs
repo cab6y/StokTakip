@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StokTakip.Products;
 using StokTakip.ProductSizes;
+using StokTakip.Sales;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -60,6 +61,7 @@ public class StokTakipDbContext :
 
     public DbSet<Product> Products { get; set; }
     public DbSet<ProductSize> ProductSizes { get; set; }
+    public DbSet<Sale> Sales { get; set; }
 
     #endregion
 
@@ -101,6 +103,13 @@ public class StokTakipDbContext :
         builder.Entity<ProductSize>(b =>
         {
             b.ToTable(StokTakipConsts.DbTablePrefix + "ProductSizes", StokTakipConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            //b.HasOne<Product>().WithMany().HasForeignKey(x => x.ProductId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+
+        });
+        builder.Entity<Sale>(b =>
+        {
+            b.ToTable(StokTakipConsts.DbTablePrefix + "Sales", StokTakipConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
             //b.HasOne<Product>().WithMany().HasForeignKey(x => x.ProductId).IsRequired().OnDelete(DeleteBehavior.Restrict);
 

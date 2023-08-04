@@ -1,6 +1,7 @@
 ﻿﻿using AutoMapper;
 using StokTakip.Products;
 using StokTakip.ProductSizes;
+using StokTakip.Sales;
 using Volo.Abp.Identity;
 
 namespace StokTakip;
@@ -17,5 +18,7 @@ public class StokTakipApplicationAutoMapperProfile : Profile
         CreateMap<ProductSize, ProductSizeDto>();
         CreateMap<ProductSizeDto, ProductSize>();
         CreateMap<CreateProductSize, ProductSize>();
+        CreateMap<Sale, SaleDto>();
+        CreateMap<CreateSale, Sale>();
     }
 }
