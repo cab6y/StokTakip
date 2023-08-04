@@ -13,4 +13,11 @@ public static class StokTakipPermissions
         public const string Edit = Default + ".Edit";
         public const string Delete = Default + ".Delete";
     }
+    public static class Sales
+    {
+        public const string Default = GroupName + ".Sales";
+        public const string Create = Default + ".Create";
+        public const string Edit = Default + ".Edit";
+        public const string Delete = Default + ".Delete";
+    }
 }

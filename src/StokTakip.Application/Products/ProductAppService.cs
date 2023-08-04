@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using StokTakip.Permissions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +16,7 @@ namespace StokTakip.Products
         public ProductAppService(IRepository<Product, Guid> productRepository) {
             _productRepository = productRepository;
         }
+        [Authorize(StokTakipPermissions.Products.Create)]
         public async Task<bool> CreateAsync(CreateProduct input)
         {
             try
@@ -27,7 +30,7 @@ namespace StokTakip.Products
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Delete)]
         public async Task<bool> DeleteAsync(Guid id)
         {
             try
@@ -40,7 +43,7 @@ namespace StokTakip.Products
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Default)]
         public async  Task<PagedResultDto<ProductDto>> GetAllAsync(GetProductListDto input)
         {
             try
@@ -75,7 +78,7 @@ namespace StokTakip.Products
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Default)]
         public async Task<ProductDto> GetByIdAsync(Guid id)
         {
             try
@@ -88,7 +91,7 @@ namespace StokTakip.Products
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Edit)]
         public async Task<bool> UpdateAsync(ProductDto input)
         {
             try

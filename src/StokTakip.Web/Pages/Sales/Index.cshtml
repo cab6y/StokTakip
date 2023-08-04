@@ -1,0 +1,45 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using StokTakip.Localization
+@using Volo.Abp.Users
+@inject ICurrentUser CurrentUser
+@inject IHtmlLocalizer<StokTakipResource> L
+@model StokTakip.Web.Pages.Sales.IndexModel
+@{
+}
+@section scripts
+    {
+    <abp-script src="/Pages/Sales/Index.js" />
+
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<abp-row>
+    <abp-column>
+        <abp-card>
+
+            <abp-card-header>
+                <abp-row>
+                    <abp-column>
+                        <abp-card-title>@L["Products"].Value</abp-card-title>
+                    </abp-column>
+                    <abp-column size-md="_2" class="text-right">
+
+                        <abp-button id="newProduct"
+                                    text="Yeni Ürün"
+                                    icon="plus"
+                                    button-type="Primary" />
+                    </abp-column>
+                </abp-row>
+            </abp-card-header>
+
+            <abp-card-body>
+
+                <abp-table striped-rows="true" id="salesTable"></abp-table>
+            </abp-card-body>
+
+
+        </abp-card>
+    </abp-column>
+</abp-row>

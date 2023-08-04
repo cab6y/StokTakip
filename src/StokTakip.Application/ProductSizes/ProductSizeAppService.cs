@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using StokTakip.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace StokTakip.ProductSizes
         {
             _productSizesRepository = productSizesRepository;
         }
-
+        [Authorize(StokTakipPermissions.Products.Create)]
         public async Task<bool> CreateAsync(CreateProductSize input)
         {
             try
@@ -31,7 +33,7 @@ namespace StokTakip.ProductSizes
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Delete)]
         public async Task<bool> DeleteAsync(Guid id)
         {
             try
@@ -44,7 +46,7 @@ namespace StokTakip.ProductSizes
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Default)]
         public async Task<PagedResultDto<ProductSizeDto>> GetAllAsync(GetProductSizeListDto input)
         {
             try
@@ -104,7 +106,7 @@ namespace StokTakip.ProductSizes
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Default)]
         public async Task<ProductSizeDto> GetAsync(Guid id)
         {
             try
@@ -117,7 +119,7 @@ namespace StokTakip.ProductSizes
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Default)]
         public async Task<ListResultDto<ProductSizeDto>> GetSizeList(Guid productId)
         {
             try
@@ -133,7 +135,7 @@ namespace StokTakip.ProductSizes
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(StokTakipPermissions.Products.Edit)]
         public async Task<bool> UpdateAsync(ProductSizeDto input)
         {
             try

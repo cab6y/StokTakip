@@ -14,5 +14,7 @@ namespace StokTakip.Sales
         public string? CustomerSurName { get; set; }
         public string? CustomerEmail { get; set; }
         public string? CustomerTelefon { get; set; }
+        public string? ProductName { get; set; }
+
     }
 }

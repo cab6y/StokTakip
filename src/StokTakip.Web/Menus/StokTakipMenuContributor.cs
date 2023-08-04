@@ -51,6 +51,14 @@ public class StokTakipMenuContributor : IMenuContributor
                    url: "/products"
                ));
         }
+        if (await context.IsGrantedAsync(StokTakipPermissions.Sales.Default))
+        {
+            Sales.AddItem(new ApplicationMenuItem(
+                   "Sales.Sales",
+                   l["Menu:Sales"],
+                   url: "/sales"
+               ));
+        }
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);

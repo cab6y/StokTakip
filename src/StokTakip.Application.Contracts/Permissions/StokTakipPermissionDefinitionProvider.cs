@@ -16,6 +16,11 @@ public class StokTakipPermissionDefinitionProvider : PermissionDefinitionProvide
         products.AddChild(StokTakipPermissions.Products.Create, L("Permission:Products.Create"));
         products.AddChild(StokTakipPermissions.Products.Edit, L("Permission:Products.Edit"));
         products.AddChild(StokTakipPermissions.Products.Delete, L("Permission:Products.Delete"));
+
+        var sales = myGroup.AddPermission(StokTakipPermissions.Sales.Default, L("Permission:Sales"));
+        sales.AddChild(StokTakipPermissions.Sales.Create, L("Permission:Sales.Create"));
+        sales.AddChild(StokTakipPermissions.Sales.Edit, L("Permission:Sales.Edit"));
+        sales.AddChild(StokTakipPermissions.Sales.Delete, L("Permission:Sales.Delete"));
     }
 
     private static LocalizableString L(string name)
