@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using StokTakip.Localization;
 using StokTakip.MultiTenancy;
+using StokTakip.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -18,7 +19,7 @@ public class StokTakipMenuContributor : IMenuContributor
         }
     }
 
-    private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+    private async  Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<StokTakipResource>();
@@ -34,6 +35,22 @@ public class StokTakipMenuContributor : IMenuContributor
             )
         );
 
+        var Sales = new ApplicationMenuItem(
+               "Sales",
+               l["Menu:Admin"],
+               icon: "fa fa-book"
+           );
+
+
+        context.Menu.AddItem(Sales);
+        if (await context.IsGrantedAsync(StokTakipPermissions.Products.Default))
+        {
+            Sales.AddItem(new ApplicationMenuItem(
+                   "Sales.Products",
+                   l["Menu:Products"],
+                   url: "/products"
+               ));
+        }
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
@@ -46,6 +63,6 @@ public class StokTakipMenuContributor : IMenuContributor
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
-        return Task.CompletedTask;
+
     }
 }

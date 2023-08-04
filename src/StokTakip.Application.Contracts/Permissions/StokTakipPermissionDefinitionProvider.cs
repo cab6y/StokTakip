@@ -11,6 +11,11 @@ public class StokTakipPermissionDefinitionProvider : PermissionDefinitionProvide
         var myGroup = context.AddGroup(StokTakipPermissions.GroupName);
         //Define your own permissions here. Example:
         //myGroup.AddPermission(StokTakipPermissions.MyPermission1, L("Permission:MyPermission1"));
+
+        var products = myGroup.AddPermission(StokTakipPermissions.Products.Default, L("Permission:Products"));
+        products.AddChild(StokTakipPermissions.Products.Create, L("Permission:Products.Create"));
+        products.AddChild(StokTakipPermissions.Products.Edit, L("Permission:Products.Edit"));
+        products.AddChild(StokTakipPermissions.Products.Delete, L("Permission:Products.Delete"));
     }
 
     private static LocalizableString L(string name)

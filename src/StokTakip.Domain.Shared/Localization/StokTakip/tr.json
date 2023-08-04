@@ -9,6 +9,8 @@
     "SizesProduct": "Beden Kontrolü",
     "Sizes": "Bedenler",
     "EditProductSize": "Beden Düzenle",
+    "Menu:Products": "Ürün Yönetimi",
+    "Menu:Admin": "Yönetici",
     "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz."
   }
 }
