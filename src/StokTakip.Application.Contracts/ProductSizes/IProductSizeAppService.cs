@@ -14,5 +14,6 @@ namespace StokTakip.ProductSizes
         Task<ProductSizeDto> GetAsync(Guid id);
         Task<PagedResultDto<ProductSizeDto>> GetAllAsync(GetProductSizeListDto filter);
         Task<bool> DeleteAsync(Guid id);
+        Task<ListResultDto<ProductSizeDto>> GetSizeList(Guid productId);
     }
 }

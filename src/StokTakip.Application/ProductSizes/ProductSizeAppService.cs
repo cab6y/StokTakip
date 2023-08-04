@@ -118,6 +118,22 @@ namespace StokTakip.ProductSizes
             }
         }
 
+        public async Task<ListResultDto<ProductSizeDto>> GetSizeList(Guid productId)
+        {
+            try
+            {
+                var quarable = await _productSizesRepository.GetQueryableAsync();
+                var period = quarable.Where(x=>x.ProductId == productId).ToList();
+                return new ListResultDto<ProductSizeDto>(
+                    ObjectMapper.Map<List<ProductSize>, List<ProductSizeDto>>(period)
+                );
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> UpdateAsync(ProductSizeDto input)
         {
             try

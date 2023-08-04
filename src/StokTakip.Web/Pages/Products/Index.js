@@ -3,6 +3,7 @@ $(function () {
     var createModal = new abp.ModalManager(abp.appPath + 'Products/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Products/EditModal');
     var sizeModal = new abp.ModalManager(abp.appPath + 'Products/SizeListModal');
+    var saleModal = new abp.ModalManager(abp.appPath + 'Products/SaleModal');
     var dataTable = $('#productsTable').DataTable(
 
         abp.libs.datatables.normalizeConfiguration({
@@ -66,6 +67,12 @@ $(function () {
                                     }
                                 },
                                 {
+                                    text: l('Sale'),
+                                    action: function (data) {
+                                        saleModal.open({ productId: data.record.id });
+                                    }
+                                },
+                                {
                                     text: l('OpenSize'),
                                     action: function (data) {
                                         sizeModal.open({ id: data.record.id });
@@ -95,6 +102,9 @@ $(function () {
 
     );
     createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+    saleModal.onResult(function () {
         dataTable.ajax.reload();
     });
     $('#newProduct').click(function (e) {
