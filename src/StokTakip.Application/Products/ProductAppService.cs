@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 using StokTakip.Permissions;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,40 @@ namespace StokTakip.Products
                 var query = from product in quarable
                             select new { product };
 
+                var filter = new Filter();
+                if (!input.Filter.IsNullOrWhiteSpace())
+                {
+                    List<FilterQuery> filterQuery = JsonConvert.DeserializeObject<List<FilterQuery>>(input.Filter);
+                    foreach (FilterQuery item in filterQuery)
+                    {
+                        if (!string.IsNullOrEmpty(item.Value))
+                        {
+
+                            if (item.Path == "Name")
+                            {
+                                filter.Name = Convert.ToString(item.Value);
+                            }
+                            if (item.Path == "Gender")
+                            {
+                                filter.Gender = (GenderEnum)Convert.ToInt32(item.Value);
+                            }
+
+                        }
+                    }
+                    //throw new EntityNotFoundException(ex.Message.ToString());
+                }
+                if (filter.Name != null)
+                {
+                    //Paging
+                    query = query.Where(x => x.product.Name.ToLower().Contains(filter.Name.ToLower()));
+
+                }
+                if (filter.Gender != GenderEnum.undifined)
+                {
+                    //Paging
+                    query = query.Where(x => x.product.Gender == filter.Gender);
+
+                }
                 query = query
              .Skip(input.SkipCount)
              .Take(input.MaxResultCount);
@@ -108,6 +143,18 @@ namespace StokTakip.Products
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public class FilterQuery
+        {
+            public string Value { get; set; }
+            public string Condition { get; set; }
+            public string Path { get; set; }
+        }
+        public class Filter
+        {
+            public string Name { get; set; }
+            public GenderEnum Gender { get; set; } = GenderEnum.undifined;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace StokTakip.Products
         Erkek = 0,
         Kadın = 1,
         Unisex = 2,
+        undifined = 3,
     }
 }
