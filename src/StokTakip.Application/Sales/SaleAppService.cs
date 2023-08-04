@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 using StokTakip.Permissions;
 using StokTakip.Products;
 using StokTakip.ProductSizes;
@@ -87,6 +88,50 @@ namespace StokTakip.Sales
                             join product in quarable3 on sale.ProductId equals product.Id
                             select new { sale , size , product};
 
+                var filter = new Filter();
+                if (!input.Filter.IsNullOrWhiteSpace())
+                {
+                    List<FilterQuery> filterQuery = JsonConvert.DeserializeObject<List<FilterQuery>>(input.Filter);
+                    foreach (FilterQuery item in filterQuery)
+                    {
+                        if (!string.IsNullOrEmpty(item.Value))
+                        {
+
+                            if (item.Path == "Name")
+                            {
+                                filter.Name = Convert.ToString(item.Value);
+                            }
+                            if (item.Path == "SurName")
+                            {
+                                filter.SurName = Convert.ToString(item.Value);
+                            }
+                            if (item.Path == "Telephone")
+                            {
+                                filter.Telephone = Convert.ToString(item.Value);
+                            }
+                        }
+                    }
+                    //throw new EntityNotFoundException(ex.Message.ToString());
+                }
+                if (filter.Name != null)
+                {
+                    //Paging
+                    query = query.Where(x => x.sale.CustomerName.ToLower().Contains(filter.Name.ToLower()));
+
+                }
+                if (filter.SurName != null)
+                {
+                    //Paging
+                    query = query.Where(x => x.sale.CustomerSurName.ToLower().Contains(filter.SurName.ToLower()));
+
+                }
+                if (filter.Telephone != null)
+                {
+                    //Paging
+                    query = query.Where(x => x.sale.CustomerTelefon.ToLower().Contains(filter.Telephone.ToLower()));
+
+                }
+
                 query = query
              .Skip(input.SkipCount)
              .Take(input.MaxResultCount);
@@ -132,6 +177,18 @@ namespace StokTakip.Sales
             {
                 throw new Exception(ex.Message);
             }
+        }
+        public class FilterQuery
+        {
+            public string Value { get; set; }
+            public string Condition { get; set; }
+            public string Path { get; set; }
+        }
+        public class Filter
+        {
+            public string Name { get; set; }
+            public string SurName { get; set; }
+            public string Telephone { get; set; }
         }
     }
 }

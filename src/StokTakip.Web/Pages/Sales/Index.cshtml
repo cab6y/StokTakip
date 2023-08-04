@@ -14,7 +14,73 @@
 }
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<abp-row>
 
+    <abp-column>
+        <abp-card>
+
+            <abp-card-header>
+                <abp-row>
+                    <abp-column>
+                        <abp-card-title>@L["Filter"].Value</abp-card-title>
+                    </abp-column>
+                    <abp-column size-md="_6" class="text-right">
+
+                    </abp-column>
+                </abp-row>
+            </abp-card-header>
+
+            <abp-card-body>
+                <abp-row>
+                    <abp-column size-md="_2">
+                        <div class="form-group">
+                            <input type="text" placeholder="@L["Name"].Value" id="Name" class="form-control" style="height:5%">
+                            <span class="text-danger field-validation-valid"></span>
+                        </div>
+
+                    </abp-column>
+                    <abp-column size-md="_2">
+                        <div class="form-group">
+                            <input type="text" placeholder="@L["SurName"].Value" id="SurName" class="form-control" style="height:5%">
+                            <span class="text-danger field-validation-valid"></span>
+                        </div>
+
+                    </abp-column>
+                    <abp-column size-md="_2">
+                        <div class="form-group">
+                            <input type="text" placeholder="@L["Telephone"].Value" id="Telephone" class="form-control" style="height:5%">
+                            <span class="text-danger field-validation-valid"></span>
+                        </div>
+
+                    </abp-column>
+
+
+                    <abp-column size-md="_2">
+
+
+                        <div class="form-group">
+                            <button type="button" id="SearchApply" class="btn btn-primary">@L["Filter"].Value</button>
+                        </div>
+
+                    </abp-column>
+                </abp-row>
+                <abp-row>
+
+
+
+
+
+                </abp-row>
+
+            </abp-card-body>
+
+
+
+        </abp-card>
+    </abp-column>
+
+</abp-row>
+<br />
 <abp-row>
     <abp-column>
         <abp-card>
