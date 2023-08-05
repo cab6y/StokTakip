@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using StokTakip.Permissions;
+using StokTakip.ProductSizes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,10 @@ namespace StokTakip.Products
     public class ProductAppService : StokTakipAppService, IProductAppService
     {
         private readonly IRepository<Product,Guid> _productRepository;
-        public ProductAppService(IRepository<Product, Guid> productRepository) {
+        private readonly IRepository<ProductSize,Guid> _productSizeRepository;
+        public ProductAppService(IRepository<Product, Guid> productRepository, IRepository<ProductSize, Guid> productSizeRepository) {
             _productRepository = productRepository;
+            _productSizeRepository = productSizeRepository;
         }
         [Authorize(StokTakipPermissions.Products.Create)]
         public async Task<bool> CreateAsync(CreateProduct input)
@@ -93,10 +96,17 @@ namespace StokTakip.Products
              .Skip(input.SkipCount)
              .Take(input.MaxResultCount);
                 var queryResult = await AsyncExecuter.ToListAsync(query);
+                var qua = await _productSizeRepository.GetQueryableAsync();
 
-                productsDto = queryResult.Select(x =>
+              productsDto = queryResult.Select(x =>
                 {
                     var productDto = ObjectMapper.Map<Product, ProductDto>(x.product);
+                    var get = qua.Where(y => y.ProductId == x.product.Id).ToList();
+                    foreach(var item in get)
+                    {
+                        productDto.sizeDescription = productDto.sizeDescription + "-" + item.Size + "(" + item.Quantity + ")";
+                    }
+                    
                     return productDto;
                 }).ToList();
                 totalCount = input.Filter == null

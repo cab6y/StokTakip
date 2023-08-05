@@ -84,9 +84,8 @@ namespace StokTakip.Sales
                 var quarable2 = await _productSizeRepository.GetQueryableAsync();
                 var quarable3 = await _productRepository.GetQueryableAsync();
                 var query = from sale in quarable
-                            join size in quarable2 on sale.ProductId equals size.ProductId
                             join product in quarable3 on sale.ProductId equals product.Id
-                            select new { sale , size , product};
+                            select new { sale  , product};
 
                 var filter = new Filter();
                 if (!input.Filter.IsNullOrWhiteSpace())

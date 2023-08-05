@@ -12,5 +12,6 @@ namespace StokTakip.Products
         public GenderEnum Gender { get; set; }
         public string image { get; set; }
         public bool IsActive { get; set; }
+        public string? sizeDescription { get; set; }
     }
 }

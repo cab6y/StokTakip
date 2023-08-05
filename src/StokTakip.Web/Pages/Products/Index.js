@@ -42,6 +42,10 @@ $(function () {
                     data: "description"
                 },
                 {
+                    title: "Bedenler",
+                    data: "sizeDescription"
+                },
+                {
                     orderable: false,
                     data: "gender",
                     title:"cinsiyet",
@@ -112,6 +116,9 @@ $(function () {
         createModal.open();
     });
     editModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+    sizeModal.onResult(function () {
         dataTable.ajax.reload();
     });
 
