@@ -39,7 +39,7 @@ namespace StokTakip.Web.Pages.Products
     public class CreateSize
     {
         public string Size { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public int Quantity { get; set; }
         [HiddenInput]
         public Guid ProductId { get; set; }

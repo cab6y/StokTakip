@@ -12,7 +12,7 @@ namespace StokTakip.ProductSizes
     public class ProductSize : AuditedAggregateRoot<Guid>, IMultiTenant
     {
         public string Size { get; set; }
-        public string Description { get;set; }
+        public string? Description { get;set; }
         public Guid ProductId { get; set; }
         public Guid? TenantId { get; set; }
         public int Quantity { get; set; }

@@ -27,6 +27,7 @@ namespace StokTakip.Web.Pages.Products
                 edit.Description = get.Description;
                 edit.Size = get.Size;
                 edit.ProductId = get.ProductId;
+                edit.Quantity = get.Quantity;
             }
             catch (Exception ex)
             {
@@ -55,7 +56,7 @@ namespace StokTakip.Web.Pages.Products
         public Guid Id { get; set; }
         public string Size { get; set; }
         public int Quantity { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [HiddenInput]
         public Guid ProductId { get; set; }
     }

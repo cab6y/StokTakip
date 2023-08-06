@@ -49,7 +49,7 @@ namespace StokTakip.Sales
                 var quarable2 = await _saleRepository.GetQueryableAsync();
                 var quarable3 = await _productSizeRepository.GetQueryableAsync();
                 var get = quarable2.Where(x => x.Id == id).FirstOrDefault();
-                var getSize = quarable3.Where(x => x.ProductId == get.ProductId).FirstOrDefault();
+                var getSize = quarable3.Where(x => x.ProductId == get.ProductId && x.Size == get.Size).FirstOrDefault();
                 getSize.Quantity = getSize.Quantity + get.Quantity;
                 await _productSizeRepository.UpdateAsync(getSize);
                 await _saleRepository.DeleteAsync(id);
@@ -81,11 +81,9 @@ namespace StokTakip.Sales
                 List<SaleDto> productsDto = new List<SaleDto>();
                 var totalCount = 0;
                 var quarable = await _saleRepository.GetQueryableAsync();
-                var quarable2 = await _productSizeRepository.GetQueryableAsync();
                 var quarable3 = await _productRepository.GetQueryableAsync();
                 var query = from sale in quarable
-                            join product in quarable3 on sale.ProductId equals product.Id
-                            select new { sale  , product};
+                            select new { sale };
 
                 var filter = new Filter();
                 if (!input.Filter.IsNullOrWhiteSpace())
@@ -139,7 +137,8 @@ namespace StokTakip.Sales
                 productsDto = queryResult.Select(x =>
                 {
                     var productDto = ObjectMapper.Map<Sale, SaleDto>(x.sale);
-                    productDto.ProductName = x.product.Name;
+                    var get = quarable3.Where(y => y.Id == x.sale.ProductId).FirstOrDefault();
+                    productDto.ProductName = get.Name;
                     return productDto;
                 }).ToList();
                 totalCount = input.Filter == null

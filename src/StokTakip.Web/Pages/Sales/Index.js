@@ -50,6 +50,10 @@ $(function () {
                     data: "quantity"
                 },
                 {
+                    title: "Fiyat",
+                    data: "price"
+                },
+                {
                     title: l('Actions'),
                     rowAction: {
                         items:

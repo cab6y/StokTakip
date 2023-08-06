@@ -49,8 +49,8 @@ namespace StokTakip.Web.Pages.Products
         }
         public class Create
         {
-            public string? Name { get; set; }
-            public string Description { get; set; }
+            public string Name { get; set; }
+            public string? Description { get; set; }
             public GenderEnum? Gender { get; set; }
             [MaxLength(999999999)]
             [HiddenInput]

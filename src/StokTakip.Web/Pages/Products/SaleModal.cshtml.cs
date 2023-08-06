@@ -47,17 +47,13 @@ namespace StokTakip.Web.Pages.Products
                 var size = await _sizeAppService.GetAsync(sale.SizeId);
                 size.Quantity = size.Quantity - sale.Quantity;
                 sale.Size = size.Size;
-                if (size.Quantity > 0)
+                if (size.Quantity >= 0)
                 {
                     await _sizeAppService.UpdateAsync(size);
                     await _saleAppService.CreateAsync(ObjectMapper.Map<CreateSalePage, CreateSale>(sale));
                 }
-                if (size.Quantity == 0)
-                {
-                    await _sizeAppService.DeleteAsync(size.Id);
-                    await _saleAppService.CreateAsync(ObjectMapper.Map<CreateSalePage,CreateSale>(sale));
-                }
-                if (size.Quantity < 0)
+               
+                else
                 {
                     throw new Exception("Bu bedenden girilen adet kadar stok bulunmamakta");
                 }
@@ -78,6 +74,7 @@ namespace StokTakip.Web.Pages.Products
             [HiddenInput]
             public string? Size { get; set; }
             public int Quantity { get; set; }
+            public float Price { get; set; }
             public string? CustomerName { get; set; }
             public string? CustomerSurName { get; set; }
             public string? CustomerEmail { get; set; }
