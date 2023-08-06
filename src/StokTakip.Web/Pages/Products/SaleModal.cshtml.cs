@@ -26,13 +26,14 @@ namespace StokTakip.Web.Pages.Products
         public List<SelectListItem>? _sizes { get; set; }
         [BindProperty]
         public CreateSalePage sale { get; set; } = new CreateSalePage();
-        public async void OnGetAsync(Guid productId)
+        public async Task<IActionResult> OnGetAsync(Guid productId)
         {
             try
             {
                 sale.ProductId = productId;
                 var sizes = await _sizeAppService.GetSizeList(productId);
                 _sizes = sizes.Items.Select(x => new SelectListItem(x.Size , x.Id.ToString())).ToList();
+                return Page();
             }
             catch(Exception ex)
             {
